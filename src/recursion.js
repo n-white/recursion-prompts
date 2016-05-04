@@ -71,10 +71,16 @@ var sumBelow = function(n) {
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
 var range = function(x, y) {
 	var result = [];
-	if(x == y) {
-		return y
-	} else {
-		return result.push(x+1, range(x+2,y))
+	if(x == y || x == y - 1) {
+		return []
+	} else if(x == y - 2) {
+		return y - 1
+	} else if(x == y + 2) {
+		return y + 1
+	} else if (x < y) {
+		return result.concat(x+1, range(x+1,y));
+	} else if (x > y) {
+		return result.concat(x-1, range(x-1,y))
 	};
 };
 
