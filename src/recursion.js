@@ -90,6 +90,15 @@ var range = function(x, y) {
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+
+	if(exp == 0) {
+		return 1;
+	} else if(exp > 0) {
+		return base * exponent(base, exp - 1);
+	} else if(exp < 0) {
+		return Number(((1/base) * exponent(base, exp + 1)).toString().slice(0,7)); 
+	}
+
 };
 
 // 8. Determine if a number is a power of two.
@@ -97,6 +106,8 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+
+
 };
 
 // 9. Write a function that accepts a string a reverses it.
