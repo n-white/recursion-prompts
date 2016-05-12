@@ -224,6 +224,19 @@ var reverseArr = function (array) {
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+
+	var newArray = []
+
+	if(length == 0) {
+		return []
+	} else if (Array.isArray(value) && value.length == 0) {
+		newArray = newArray.concat([value], buildList(value, length - 1))
+	} else {
+		newArray = newArray.concat(value, buildList(value, length - 1))
+	}
+
+	return newArray
+
 };
 
 // 19. Count the occurence of a value inside a list.
