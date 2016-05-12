@@ -249,18 +249,29 @@ var countOccurrence = function(array, value) {
 	if(array.length == 0) {
 		return [];
 	} else if(array[0] == value) {
-		newArray = newArray.concat(array[0], countOccurrence(array.slice(1), value))
+		newArray = newArray.concat(1, countOccurrence(array.slice(1), value))
 	} else {
 		newArray = newArray.concat(countOccurrence(array.slice(1), value))
 	}
 
-	return newArray.length;
+	return sum(newArray);
 
 };
 
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+
+	var newArray = [];
+
+	if(array.length == 0) {
+		return []
+	} else {
+		return newArray.concat(callback(array[0]), rMap(array.slice(1), callback))
+	}
+
+	return newArray;
+
 };
 
 // 21. Write a function that counts the number of times a key occurs in an object.
@@ -287,7 +298,19 @@ var replaceKeysInObj = function(obj, key, newKey) {
 // Example:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34.....
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
+//************************************************************************************************
 var fibonacci = function(n) {
+
+	if(n <= 0) {
+		return null;
+	} else if(n == 1) {
+		return [0, 1]; 
+	} else {
+		var s = fibonacci(n - 1);
+		s.push(s[s.length - 1] + s[s.length - 2]); 
+		return s
+	}
+
 };
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
