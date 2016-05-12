@@ -243,6 +243,19 @@ var buildList = function(value, length) {
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+
+	var newArray = []
+
+	if(array.length == 0) {
+		return [];
+	} else if(array[0] == value) {
+		newArray = newArray.concat(array[0], countOccurrence(array.slice(1), value))
+	} else {
+		newArray = newArray.concat(countOccurrence(array.slice(1), value))
+	}
+
+	return newArray.length;
+
 };
 
 // 20. Write a recursive version of map.
