@@ -131,6 +131,7 @@ var reverse = function(string) {
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+
 	var newString = [];
 
 		if(string.length == 1) {
@@ -169,7 +170,11 @@ var modulo = function(x, y) {
 // JavaScript's Math object.
 var multiply = function(x, y) {
 
-
+	if(y == 1) {
+		return x;
+	} else {
+		return x + multiply(x, y - 1)
+	}
 
 };
 
@@ -184,6 +189,16 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+
+	if (x < 0 || y < 0) {
+		return null;
+	} else if(x == y) {
+		return x;
+	} else if (x > y) {
+		return gcd(x-y, y)
+	} else if (x < y) {
+		return gcd(x, y-x)
+	}
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -350,18 +365,26 @@ var capitalizeWords = function(input) {
 
 // 27. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car', 'poop', 'banana']); // ['Car', 'Poop', 'Banana']
-var capitalizeFirst = function(array) {
 
-	var newArray = []
+var capitalizeFirst = function(input) {
 
-	if(array.length == 0) {
-		return [];
-	} else {
-		newArray = newArray.concat(array[0].slice(0,1).toUpperCase() + array[0].slice(1), capitalizeFirst(array.slice(1)))
+	function map(collection, callback) {
+		var newArray = [];
+		for(var i = 0; i < collection.length; i++) {
+			newArray.push(callback(collection[i]));
+		}
+		return newArray;
 	}
 
-	return newArray
 
+	if(typeof input == 'string') {
+		return input.slice(0,1).toUpperCase() + input.slice(1)
+	}
+	if(Array.isArray(input)) {
+		return map(input, function(item) {
+			return capitalizeFirst(item);
+		})
+	}
 };
 
 // 28. Return the sum of all even numbers in an object containing nested objects.
