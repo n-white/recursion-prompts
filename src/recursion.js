@@ -270,17 +270,11 @@ var buildList = function(value, length) {
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
 
-	var newArray = []
-
-	if(array.length == 0) {
-		return [];
-	} else if(array[0] == value) {
-		newArray = newArray.concat(1, countOccurrence(array.slice(1), value))
+	if(!array.length) {
+		return 0;
 	} else {
-		newArray = newArray.concat(countOccurrence(array.slice(1), value))
+		return (array[0] === value ? 1 : 0) + countOccurrence(array.slice(1), value)
 	}
-
-	return sum(newArray);
 
 };
 
