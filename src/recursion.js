@@ -527,6 +527,17 @@ var compress = function(list) {
 // itself.
 // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
+
+	var newArray = []
+
+	if(!array.length) {
+		return []
+	} else {
+		newArray = newArray.concat([array[0], aug]).concat(augmentElements(array.slice(1), aug))
+	}
+	
+	return newArray
+
 };
 
 // 33. Reduce a series of zeroes to a single 0.
@@ -553,6 +564,15 @@ var minimizeZeroes = function(array) {
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
 var alternateSign = function(array) {
+
+	if(!array.length) {
+		return [];
+	} else if(array.length % 2 == 0){
+		return [Math.abs(array[0])].concat(alternateSign(array.slice(1)))
+	} else {
+		return [-Math.abs(array[0])].concat(alternateSign(array.slice(1)))
+	}
+
 };
 
 // 35. Given a string, return a string with digits converted to their word equivalent.
