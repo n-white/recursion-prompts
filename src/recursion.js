@@ -419,23 +419,12 @@ var capitalizeWords = function(input) {
 
 var capitalizeFirst = function(input) {
 
-	function map(collection, callback) {
-		var newArray = [];
-		for(var i = 0; i < collection.length; i++) {
-			newArray.push(callback(collection[i]));
-		}
-		return newArray;
+	if(!input.length) {
+		return []
+	} else {
+		return [input[0][0].toUpperCase() + input[0].slice(1)].concat(capitalizeFirst(input.slice(1)))
 	}
 
-
-	if(typeof input == 'string') {
-		return input.slice(0,1).toUpperCase() + input.slice(1)
-	}
-	if(Array.isArray(input)) {
-		return map(input, function(item) {
-			return capitalizeFirst(item);
-		})
-	}
 };
 
 // 28. Return the sum of all even numbers in an object containing nested objects.
@@ -605,14 +594,89 @@ var numToText = function(str) {
 // *** EXTRA CREDIT ***
 
 // 36. Return the number of times a tag occurs in the DOM.
+
+
+
+contains = function(collection, target) {
+    return reduce(collection, function(wasFound, item) {
+      if (wasFound) {
+        return true;
+      }
+      return item === target;
+    }, false);
+  };
+
+reduce = function(collection, iterator, accumulator) {
+    if(accumulator === undefined) {
+      accumulator = collection[0];
+      each(collection.slice(1), function(item) {
+      accumulator = iterator(accumulator, item);
+      });      
+    } else {
+      each(collection, function(item) {
+      accumulator = iterator(accumulator, item);
+    })
+    };  
+    return accumulator
+  };
+
+each = function(collection, iterator) {
+    if (Array.isArray(collection)) {
+      for(var i = 0; i < collection.length; i ++) {
+        iterator(collection[i], i, collection);
+      };
+    } else {  
+      for(var key in collection) {
+        iterator(collection[key], key, collection);
+      };
+    };
+  };
+
 var tagCount = function(tag, node) {
+
+	if(node == undefined) {
+		node = document.body;
+	}
+
+	var elementList = 0	;
+
+    if(contains(node.classList, tag)) {
+    	elementList += 1
+   	}
+
+    for(var i = 0; i < node.childNodes.length; i++) {
+    	tagCount(tag, node.childNodes[i])
+    }
+
+  	return elementList;
+
 };
+
+
+
+
+
+
 
 // 37. Write a function for binary search.
 // Sample array:  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 // console.log(binarySearch(5)) will return '5'
 
 var binarySearch = function(array, target, min, max) {
+
+	min === undefined ? min = 0 : min;
+	max === undefined ? max = array.length : max;
+	
+	var mid = min + Math.floor((max - min) / 2)
+	
+	if(array[mid] == target) {
+		return mid + 1
+	} else if(array[mid] > target) {
+		return binarySearch(array, target, min, mid + 1)
+	} else {
+		return binarySearch(array, target, mid + 1, max)
+	};
+	
 };
 
 // 38. Write a merge sort function.
@@ -620,3 +684,4 @@ var binarySearch = function(array, target, min, max) {
 // Sample output: [5,7,23,32,34,62]
 var mergeSort = function(array) {
 };
+		
